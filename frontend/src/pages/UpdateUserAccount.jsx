@@ -10,7 +10,7 @@ import "@assets/common.css";
 import API from "../services/api";
 
 function UpdateUserAccount() {
-  const userId = parseInt(sessionStorage.getItem("userId"), 10);
+  const userId = sessionStorage.getItem("userId");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [modal, setModal] = useState(false);

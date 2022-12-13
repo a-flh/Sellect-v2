@@ -1,6 +1,7 @@
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { v4: uuidv4 } = require("uuid");
 const models = require("../models");
 // const sendMail = require("../services/sendMail");
 
@@ -30,7 +31,7 @@ class UsersController {
   };
 
   static read = (req, res) => {
-    const userId = parseInt(req.params.id, 10);
+    const userId = req.params.id;
 
     models.user
       .findById(userId)
@@ -49,7 +50,7 @@ class UsersController {
 
   static editInfos = async (req, res) => {
     const { phoneNumber, email } = req.body;
-    const id = parseInt(req.params.id, 10);
+    const { id } = req.params;
 
     models.user
       .updateInfos({ id, phoneNumber, email })
@@ -68,7 +69,7 @@ class UsersController {
 
   static editPassword = async (req, res) => {
     const { password } = req.body;
-    const id = parseInt(req.params.id, 10);
+    const { id } = req.params;
     const hash = await bcrypt.hash(password, 10);
 
     models.user
@@ -96,6 +97,7 @@ class UsersController {
       password,
       signupDate,
     } = req.body;
+    const uuid = uuidv4();
     const findByEmail = await models.user.findByEmail(email);
     const hash = await bcrypt.hash(password, 10);
     const referralCode = `${firstname.slice(0, 2)}${lastname.slice(
@@ -117,6 +119,7 @@ class UsersController {
 
       models.user
         .insert({
+          id: uuid,
           firstname,
           lastname,
           email,
@@ -146,8 +149,7 @@ class UsersController {
           );
           res.cookie("sellectUserToken", token).status(201).json({
             message: "User created",
-            role: result[0].role,
-            id: result[0].insertId,
+            id: uuid,
           });
         })
         .catch((err) => {

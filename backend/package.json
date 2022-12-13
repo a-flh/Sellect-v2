@@ -23,7 +23,8 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "nodemailer": "^6.7.7",
-    "template-fullstack": "file:.."
+    "template-fullstack": "file:..",
+    "uuid": "^9.0.0"
   },
   "rules": {
     "no-console": [
