@@ -27,9 +27,7 @@ function SignUp() {
 
   useEffect(() => {
     API.get(`/users/sponsors/${sponsorCode}`)
-      .then((res) => {
-        setSponsorName(res.data.firstname);
-      })
+      .then((res) => setSponsorName(res.data.firstname))
       .catch((err) => {
         console.error(err);
         setSponsorName("");
@@ -128,14 +126,14 @@ function SignUp() {
             type="text"
             placeholder="Code de parrainage"
             value={sponsorCode}
-            onChange={(e) => {
+            onChange={(e) =>
               setSponsorCode(
                 e.target.value
                   .split("")
                   .map((el) => (el === " " ? "" : el))
                   .join("")
-              );
-            }}
+              )
+            }
           />
           <input
             type="password"
