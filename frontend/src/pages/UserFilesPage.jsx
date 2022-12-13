@@ -9,7 +9,7 @@ import TotalGainsPerUser from "@components/TotalGainsPerUser";
 import { MainContext } from "../contexts/MainContext";
 
 function UserFilesPage() {
-  const userId = parseInt(sessionStorage.getItem("userId"), 10);
+  const userId = sessionStorage.getItem("userId");
   const navigate = useNavigate();
   const { isFileModal, setIsFileModal } = useContext(MainContext);
 

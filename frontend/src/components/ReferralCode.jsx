@@ -5,7 +5,7 @@ import "@assets/ReferralCode.css";
 import SponsorName from "./SponsorName";
 
 function ReferralCode() {
-  const userId = parseInt(sessionStorage.getItem("userId"), 10);
+  const userId = sessionStorage.getItem("userId");
   const [user, setUser] = useState(userId);
   // const [qrcode, setQrcode] = useState(user.referralCode);
   // const [url] = useState([]);

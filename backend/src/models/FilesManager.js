@@ -26,12 +26,12 @@ class FilesManager extends AbstractManager {
 
   updateContract(file) {
     return this.connection.query(
-      `UPDATE ${FilesManager.table} set userId = ?, name = ?, content = ?, newSendDate = ?, newCost = ?, gain = ? where id = ?`,
+      `UPDATE ${FilesManager.table} set userId = ?, name = ?, content = ?, updateDate = ?, newCost = ?, gain = ? where id = ?`,
       [
         file.userId,
         file.name,
         file.content,
-        file.newSendDate,
+        file.updateDate,
         file.newCost,
         file.gain,
         file.id,
