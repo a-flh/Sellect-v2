@@ -39,7 +39,7 @@ class FilesController {
   };
 
   static read = (req, res) => {
-    const userId = parseInt(req.params.id, 10);
+    const userId = req.params.id;
 
     models.file
       .findByUserId(userId)
@@ -57,7 +57,7 @@ class FilesController {
   };
 
   static readGains = (req, res) => {
-    const userId = parseInt(req.params.id, 10);
+    const userId = req.params.id;
 
     models.file
       .findGainsByUserId(userId)
@@ -168,7 +168,7 @@ class FilesController {
   };
 
   static deleteFiles = (req, res) => {
-    const userId = parseInt(req.params.id, 10);
+    const userId = req.params.id;
 
     models.file
       .deleteAll(userId)

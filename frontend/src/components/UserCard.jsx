@@ -6,11 +6,14 @@ import AdminModalAudit from "./AdminModalAudit";
 import SponsorName from "./SponsorName";
 import UserFiles from "./UserFiles";
 import TotalGainsPerUser from "./TotalGainsPerUser";
+import RoleCard from "./RoleCard";
 
 function UserCard({ user }) {
   const { setDeleteUserModal, setIsUserDeleted } = useContext(MainContext);
   const [modal, setModal] = useState(false);
   const [areFilesDeleted, setAreFilesDeleted] = useState(false);
+  const superAdminId = import.meta.env.VITE_SUPER_ADMIN_ID;
+  const userId = sessionStorage.getItem("userId");
 
   const handleDelete = (e) => {
     // eslint-disable-next-line no-alert
@@ -63,20 +66,30 @@ function UserCard({ user }) {
             <p>
               <span>Code de parrainage:</span> {user.referralCode}
             </p>
+            {/* <RoleCard user={user} /> */}
           </div>
           <div className="usercard_btn">
-            <button
-              type="button"
-              onClick={() => setModal(true)}
-              className="add_btn"
-            >
-              Envoyer document
-            </button>
-            <button type="button" onClick={handleDelete} className="delete_btn">
-              Supprimer utilisateur
-            </button>
+            {user.id !== userId && user.role !== "ADMIN" && (
+              <button
+                type="button"
+                onClick={() => setModal(true)}
+                className="add_btn"
+              >
+                Envoyer document
+              </button>
+            )}
+            {user.id !== userId && user.id !== superAdminId && (
+              <button
+                type="button"
+                onClick={handleDelete}
+                className="delete_btn"
+              >
+                Supprimer utilisateur
+              </button>
+            )}
           </div>
         </div>
+        <RoleCard user={user} />
         <UserFiles user={user.id} />
       </details>
       {modal && <AdminModalAudit setModal={setModal} user={user} />}

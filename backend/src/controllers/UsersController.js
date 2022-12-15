@@ -87,6 +87,25 @@ class UsersController {
       });
   };
 
+  static editRole = (req, res) => {
+    const { role } = req.body;
+    const { id } = req.params;
+
+    models.user
+      .updateRole({ id, role })
+      .then(([result]) => {
+        if (result.affectedRows === 0) {
+          res.sendStatus(404);
+        } else {
+          res.sendStatus(204);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
+  };
+
   static add = async (req, res) => {
     const {
       firstname,

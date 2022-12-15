@@ -49,6 +49,13 @@ class UsersManager extends AbstractManager {
     );
   }
 
+  updateRole(user) {
+    return this.connection.query(
+      `update ${UsersManager.table} set role = ? where id = ?`,
+      [user.role, user.id]
+    );
+  }
+
   findBySponsorCode(sponsorCode) {
     return this.connection
       .query(
