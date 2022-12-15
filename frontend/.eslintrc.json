@@ -26,6 +26,14 @@
         "message": "You can only call the error() and warn() functions from the console object"
       }
     ],
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "required": {
+          "some": ["nesting", "id"]
+        }
+      }
+    ],
     "react/react-in-jsx-scope": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/no-unescaped-entities": "off"
