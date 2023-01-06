@@ -77,6 +77,7 @@ function AdminDashboard() {
                 user.email.toLowerCase().includes(searchUser.toLowerCase()) ||
                 user.phoneNumber.includes(searchUser)
             )
+            .sort((a, b) => Date.parse(a.signupDate) - Date.parse(b.signupDate))
             .map((user) => {
               return (
                 <li key={user.id}>

@@ -39,6 +39,7 @@ function UserFiles({ user }) {
       <ul>
         {auditReports &&
           auditReports
+            .sort((a, b) => Date.parse(b.sendDate) - Date.parse(a.sendDate))
             .map((auditReport) => {
               return (
                 <li key={auditReport.id}>
@@ -50,13 +51,13 @@ function UserFiles({ user }) {
                   />
                 </li>
               );
-            })
-            .reverse()}
+            })}
       </ul>
       {contracts.length !== 0 && <h2>Contrats</h2>}
       <ul>
         {contracts &&
           contracts
+            .sort((a, b) => Date.parse(b.sendDate) - Date.parse(a.sendDate))
             .map((contract) => {
               return (
                 <li key={contract.id}>
@@ -68,8 +69,7 @@ function UserFiles({ user }) {
                   />
                 </li>
               );
-            })
-            .reverse()}
+            })}
       </ul>
     </div>
   );
