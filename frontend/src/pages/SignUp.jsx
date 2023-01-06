@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import Moment from "moment";
 import API from "../services/api";
 import "../assets/common.css";
 import "../assets/Signup.css";
@@ -22,7 +21,6 @@ function SignUp() {
   const [emailError, setEmailError] = useState(false);
   const [sponsorCode, setSponsorCode] = useState("");
   const [sponsorName, setSponsorName] = useState("");
-  const signupDate = Moment().format("DD-MM-YYYY");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,7 +62,6 @@ function SignUp() {
         email,
         phoneNumber,
         password,
-        signupDate,
         sponsorCode,
       })
         .then((res) => {

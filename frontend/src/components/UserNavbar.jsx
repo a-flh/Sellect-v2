@@ -86,6 +86,14 @@ export default function UserNavbar() {
                   </NavLink>
                 )}
                 <NavLink
+                  to="/mon-compte/forum"
+                  className={(items) =>
+                    items.isActive ? "items-activated" : "items"
+                  }
+                >
+                  Forum
+                </NavLink>
+                <NavLink
                   to="/mon-compte/mettre-a-jour"
                   className={(items) =>
                     items.isActive ? "items-activated" : "items"

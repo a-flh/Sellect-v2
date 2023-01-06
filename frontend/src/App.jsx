@@ -13,6 +13,7 @@ import LegalNotices from "./pages/LegalNotices";
 import Wilders from "./pages/Wilders";
 import Sponsorship from "./pages/Sponsorship";
 import Calendar from "./pages/Calendar";
+import Forum from "./pages/Forum";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           element={<UpdateUserAccount />}
         />
         <Route path="/mon-compte/fichiers" element={<UserFilesPage />} />
+        <Route path="/mon-compte/forum" element={<Forum />} />
       </Routes>
     </div>
   );

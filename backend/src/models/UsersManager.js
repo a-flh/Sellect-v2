@@ -5,7 +5,7 @@ class UsersManager extends AbstractManager {
 
   insert(user) {
     return this.connection.query(
-      `insert into ${UsersManager.table} (id, firstname, lastname, phoneNumber, email, password, sponsorCode, referralCode, role, signupDate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO ${UsersManager.table} (id, firstname, lastname, phoneNumber, email, password, sponsorCode, referralCode, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         user.id,
         user.firstname,
@@ -16,7 +16,6 @@ class UsersManager extends AbstractManager {
         user.sponsorCode,
         user.referralCode,
         user.role,
-        user.signupDate,
       ]
     );
   }
@@ -35,23 +34,32 @@ class UsersManager extends AbstractManager {
       .then((res) => res[0]);
   }
 
+  findNameById(userId) {
+    return this.connection
+      .query(
+        `SELECT firstname, lastname FROM ${UsersManager.table} WHERE id = ?`,
+        [userId]
+      )
+      .then((res) => res[0]);
+  }
+
   updateInfos(user) {
     return this.connection.query(
-      `update ${UsersManager.table} set phoneNumber = ?, email = ? where id = ?`,
+      `UPDATE ${UsersManager.table} SET phoneNumber = ?, email = ? where id = ?`,
       [user.phoneNumber, user.email, user.id]
     );
   }
 
   updatePassword(user) {
     return this.connection.query(
-      `update ${UsersManager.table} set password = ? where id = ?`,
+      `UPDATE ${UsersManager.table} SET password = ? where id = ?`,
       [user.password, user.id]
     );
   }
 
   updateRole(user) {
     return this.connection.query(
-      `update ${UsersManager.table} set role = ? where id = ?`,
+      `UPDATE ${UsersManager.table} SET role = ? where id = ?`,
       [user.role, user.id]
     );
   }

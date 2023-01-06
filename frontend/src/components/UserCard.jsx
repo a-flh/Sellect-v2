@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { dateFormater } from "@services/dateFormater";
 import API from "../services/api";
 import { MainContext } from "../contexts/MainContext";
 import "../assets/Usercard.css";
@@ -11,32 +12,30 @@ import RoleCard from "./RoleCard";
 function UserCard({ user }) {
   const { setDeleteUserModal, setIsUserDeleted } = useContext(MainContext);
   const [modal, setModal] = useState(false);
-  const [areFilesDeleted, setAreFilesDeleted] = useState(false);
   const superAdminId = import.meta.env.VITE_SUPER_ADMIN_ID;
   const userId = sessionStorage.getItem("userId");
 
-  const handleDelete = (e) => {
+  const handleDelete = async () => {
     // eslint-disable-next-line no-alert
-    return window.confirm("Voulez-vous vraiment supprimer cet utilisateur ?")
-      ? API.delete(`/all-files/${user.id}`)
-          .then(() => {
-            setAreFilesDeleted(true);
-          })
-          .catch((err) => console.error(err))
-      : e.preventDefault();
+    if (window.confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) {
+      await API.delete(`/all-files/${user.id}`).catch((err) =>
+        console.error(err)
+      );
+      await API.delete(`/delete-all-messages/${user.id}`).catch((err) =>
+        console.error(err)
+      );
+      API.delete(`/delete-all-topics/${user.id}`)
+        .catch((err) => console.error(err))
+        .then(() => API.delete(`/users/${user.id}`))
+        .then(() => {
+          setIsUserDeleted(true);
+          setTimeout(() => {
+            setDeleteUserModal(true);
+          }, 500);
+        })
+        .catch((err) => console.error(err));
+    }
   };
-
-  if (areFilesDeleted) {
-    API.delete(`/users/${user.id}`)
-      .then(() => {
-        setIsUserDeleted(true);
-        setAreFilesDeleted(false);
-        setTimeout(() => {
-          setDeleteUserModal(true);
-        }, 500);
-      })
-      .catch((err) => console.error(err));
-  }
 
   return (
     <div className="user_card">
@@ -57,7 +56,7 @@ function UserCard({ user }) {
               <span>Téléphone:</span> {user.phoneNumber}
             </p>
             <p>
-              <span>Date d'inscription:</span> {user.signupDate}
+              <span>Date d'inscription:</span> {dateFormater(user.signupDate)}
             </p>
             <SponsorName
               user={user.id}
@@ -66,7 +65,6 @@ function UserCard({ user }) {
             <p>
               <span>Code de parrainage:</span> {user.referralCode}
             </p>
-            {/* <RoleCard user={user} /> */}
           </div>
           <div className="usercard_btn">
             {user.id !== userId && user.role !== "ADMIN" && (

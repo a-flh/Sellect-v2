@@ -4,6 +4,8 @@ const {
   ItemController,
   UsersController,
   FilesController,
+  TopicsController,
+  MessagesController,
 } = require("./controllers");
 
 const { authorization, isAdmin } = require("./middlewares/authMiddleware");
@@ -22,6 +24,7 @@ router.get("/users", authorization, isAdmin, UsersController.browse);
 router.post("/login/users", UsersController.login);
 router.get("/logout/users", UsersController.logout);
 router.get("/users/:id", authorization, UsersController.read);
+router.get("/users/name/:id", authorization, UsersController.readName);
 router.delete("/users/:id", authorization, isAdmin, UsersController.delete);
 router.put("/infos/users/:id", authorization, UsersController.editInfos);
 router.put("/password/users/:id", authorization, UsersController.editPassword);
@@ -63,5 +66,43 @@ router.put(
 router.get("/gains/users/:id", authorization, FilesController.readGains);
 router.get("/audit-reports-number", FilesController.browseAuditReportsNumber);
 router.get("/total-gains-per-month", FilesController.browseTotalGainsPerMonth);
+
+router.post("/add-topic", authorization, TopicsController.add);
+router.get("/topics", authorization, TopicsController.browse);
+router.delete(
+  "/delete-topic/:id",
+  authorization,
+  isAdmin,
+  TopicsController.delete
+);
+router.delete(
+  "/delete-all-topics/:id",
+  authorization,
+  isAdmin,
+  TopicsController.deleteAll
+);
+
+router.post("/add-message", authorization, MessagesController.add);
+router.put("/edit-message/:id", authorization, MessagesController.editMessage);
+router.put(
+  "/ban-message/:id",
+  authorization,
+  isAdmin,
+  MessagesController.banMessage
+);
+router.get("/messages/:id", authorization, MessagesController.read);
+router.get("/messages-count/:id", authorization, MessagesController.readCount);
+router.delete(
+  "/delete-messages/:id",
+  authorization,
+  isAdmin,
+  MessagesController.deleteMessages
+);
+router.delete(
+  "/delete-all-messages/:id",
+  authorization,
+  isAdmin,
+  MessagesController.deleteAllMessages
+);
 
 module.exports = router;

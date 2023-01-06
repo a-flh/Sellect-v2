@@ -5,14 +5,13 @@ class FilesManager extends AbstractManager {
 
   insert(file) {
     return this.connection.query(
-      `INSERT into ${FilesManager.table} (id, userId, name, content, category, sendDate, initialCost) values (?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO ${FilesManager.table} (id, userId, name, content, category, initialCost) VALUES (?, ?, ?, ?, ?, ?)`,
       [
         file.id,
         file.userId,
         file.name,
         file.content,
         file.category,
-        file.sendDate,
         file.initialCost,
       ]
     );
@@ -26,7 +25,7 @@ class FilesManager extends AbstractManager {
 
   updateContract(file) {
     return this.connection.query(
-      `UPDATE ${FilesManager.table} set userId = ?, name = ?, content = ?, updateDate = ?, newCost = ?, gain = ? where id = ?`,
+      `UPDATE ${FilesManager.table} SET userId = ?, name = ?, content = ?, updateDate = ?, newCost = ?, gain = ? where id = ?`,
       [
         file.userId,
         file.name,

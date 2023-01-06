@@ -1,13 +1,11 @@
 import API from "@services/api";
 import React, { useContext, useState } from "react";
-import Moment from "moment";
 import { MainContext } from "../contexts/MainContext";
 import "@assets/ContractModal.css";
 
 function AdminModalNewContract({ file, setContractModal }) {
   const [contract, setContract] = useState("");
   const [name, setName] = useState("");
-  const newSendDate = Moment().format("DD-MM-YYYY");
   const [newCost, setNewCost] = useState(0);
   const [isContractMessageReady, setIsContractMessageReady] = useState(false);
   const { setIsGainReady, setIsContractSent } = useContext(MainContext);
@@ -18,7 +16,7 @@ function AdminModalNewContract({ file, setContractModal }) {
     formData.append("userId", file.userId);
     formData.append("name", name);
     formData.append("file", contract);
-    formData.append("newSendDate", newSendDate);
+    formData.append("updateDate", new Date().toJSON());
     formData.append("newCost", newCost);
     formData.append("gain", file.initialCost - newCost);
     API.put(`/update/new-contracts/${file.id}`, formData)

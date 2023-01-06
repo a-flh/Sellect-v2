@@ -48,7 +48,25 @@ class UsersController {
       });
   };
 
-  static editInfos = async (req, res) => {
+  static readName = (req, res) => {
+    const userId = req.params.id;
+
+    models.user
+      .findNameById(userId)
+      .then(([rows]) => {
+        if (rows == null) {
+          res.sendStatus(404);
+        } else {
+          res.send(rows);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
+  };
+
+  static editInfos = (req, res) => {
     const { phoneNumber, email } = req.body;
     const { id } = req.params;
 
@@ -107,15 +125,8 @@ class UsersController {
   };
 
   static add = async (req, res) => {
-    const {
-      firstname,
-      lastname,
-      email,
-      phoneNumber,
-      sponsorCode,
-      password,
-      signupDate,
-    } = req.body;
+    const { firstname, lastname, email, phoneNumber, sponsorCode, password } =
+      req.body;
     const uuid = uuidv4();
     const findByEmail = await models.user.findByEmail(email);
     const hash = await bcrypt.hash(password, 10);
@@ -147,7 +158,6 @@ class UsersController {
           referralCode,
           password: hash,
           role: "USER",
-          signupDate,
         })
         .then((result) => {
           /* sendMail(

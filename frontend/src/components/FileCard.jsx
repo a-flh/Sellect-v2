@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import download from "downloadjs";
+import { dateFormater } from "@services/dateFormater";
 import API from "../services/api";
 import "../assets/common.css";
 import "../assets/Filecard.css";
@@ -28,19 +29,19 @@ function FileCard({ file, files, setFiles, admin }) {
       .catch((err) => console.error(err));
   }, [isContractSent]);
 
-  const handleDelete = (e) => {
+  const handleDelete = () => {
     // eslint-disable-next-line no-alert
-    return window.confirm("Voulez-vous vraiment supprimer ce document ?")
-      ? API.delete(`/files/${file.id}`)
-          .then(() => {
-            setFiles(files.filter((el) => el !== file));
-            setIsFileDeleted(true);
-            setTimeout(() => {
-              setDeleteFileModal(true);
-            }, 500);
-          })
-          .catch((err) => console.error(err))
-      : e.preventDefault();
+    if (window.confirm("Voulez-vous vraiment supprimer ce document ?")) {
+      API.delete(`/files/${file.id}`)
+        .then(() => {
+          setFiles(files.filter((el) => el !== file));
+          setIsFileDeleted(true);
+          setTimeout(() => {
+            setDeleteFileModal(true);
+          }, 500);
+        })
+        .catch((err) => console.error(err));
+    }
   };
 
   return (
@@ -66,15 +67,15 @@ function FileCard({ file, files, setFiles, admin }) {
                 : "file-card-initial-cost"
             }
           >
-            {file.sendDate}
+            {dateFormater(file.sendDate)}
           </span>
         </p>
-        {file.newSendDate && (
+        {file.updateDate && (
           <p>
             <span className="file-card-entitled">
               Date d'envoi du nouveau contrat:
             </span>{" "}
-            <span className="user-gains">{file.newSendDate}</span>
+            <span className="user-gains">{dateFormater(file.updateDate)}</span>
           </p>
         )}
         {file.initialCost && file.category !== "Compte-rendu d'audit" && (

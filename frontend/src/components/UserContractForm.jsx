@@ -1,6 +1,5 @@
 import API from "@services/api";
 import React, { useContext, useState } from "react";
-import Moment from "moment";
 import { MainContext } from "../contexts/MainContext";
 import "../assets/common.css";
 import "../assets/Usercontractform.css";
@@ -10,7 +9,6 @@ function UserContractForm() {
   const [category, setCategory] = useState("");
   const userId = sessionStorage.getItem("userId");
   const [name, setName] = useState("");
-  const sendDate = Moment().format("DD-MM-YYYY");
   const [initialCost, setInitialCost] = useState(0);
   const { setIsContractSent } = useContext(MainContext);
   const { setIsFileModal } = useContext(MainContext);
@@ -23,7 +21,6 @@ function UserContractForm() {
     formData.append("name", name);
     formData.append("category", category);
     formData.append("initialCost", initialCost);
-    formData.append("sendDate", sendDate);
     API.post("/upload/contracts", formData)
       .then(() => {
         setIsContractSent(true);
