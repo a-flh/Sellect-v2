@@ -1,5 +1,4 @@
 const models = require("../models");
-// const sendMail = require("../services/sendMail");
 
 class FilesController {
   static browse = (req, res) => {
@@ -75,14 +74,13 @@ class FilesController {
   };
 
   static editContract = (req, res) => {
-    req.body = {
+    const file = {
       ...req.body,
       id: parseInt(req.params.id, 10),
       content: req.files.file.newFilename,
       newCost: parseInt(req.body.newCost, 10),
       gain: parseInt(req.body.gain, 10),
     };
-    const file = req.body;
 
     models.file
       .updateContract(file)
@@ -90,14 +88,6 @@ class FilesController {
         if (result.affectedRows === 0) {
           res.sendStatus(404);
         } else {
-          /* console.log(req.body);
-          models.user.findById(parseInt(req.body.userId, 10)).then(([user]) => {
-            sendMail(
-              user.email,
-              "Mise à jour de contrat Sellect",
-              `Votre contrat a bien été mis à jour`
-            );
-          }); */
           res.status(201).send({ ...file });
         }
       })
@@ -108,19 +98,11 @@ class FilesController {
   };
 
   static addContract = (req, res) => {
-    req.body = { ...req.body, content: req.files.file.newFilename };
-    const file = req.body;
+    const file = { ...req.body, content: req.files.file.newFilename };
 
     models.file
       .insert(file)
       .then(([result]) => {
-        /* models.user.findById(parseInt(req.body.userId, 10)).then(([user]) => {
-          sendMail(
-            "sellect@outlook.fr",
-            "Ajout contrat Sellect",
-            `${user.firstname} ${user.lastname} a envoyé un contrat.`
-          );
-        }); */
         res.status(201).send({ ...file, id: result.insertId });
       })
       .catch((err) => {
@@ -130,23 +112,15 @@ class FilesController {
   };
 
   static addAuditReport = (req, res) => {
-    req.body = {
+    const file = {
       ...req.body,
       content: req.files.file.newFilename,
       category: "Compte-rendu d'audit",
     };
-    const file = req.body;
 
     models.file
       .insert(file)
       .then(([result]) => {
-        /* models.user.findById(parseInt(req.body.userId, 10)).then(([user]) => {
-          sendMail(
-            user.email,
-            "Compte-rendu audit Sellect",
-            "Voilà votre cr sellect"
-          );
-        }); */
         res.status(201).send({ ...file, id: result.insertId });
       })
       .catch((err) => {
@@ -186,15 +160,12 @@ class FilesController {
   };
 
   static download = (req, res) => {
-    // je récupère le params passer par l'url
     const { name } = req.params;
-    // je renvoi via un status code 200 mon document.
     res.status(200).download(`${__dirname}/../../uploads/${name}`, name);
   };
 
   static browsePath = (req, res) => {
     const { name } = req.params;
-    // je renvoi via un status code 200 mon document.
     res.status(200).json({ path: `${name}` });
   };
 }

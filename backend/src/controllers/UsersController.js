@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 const models = require("../models");
-// const sendMail = require("../services/sendMail");
 
 class UsersController {
   static browse = (req, res) => {
@@ -53,6 +52,24 @@ class UsersController {
 
     models.user
       .findNameById(userId)
+      .then(([rows]) => {
+        if (rows == null) {
+          res.sendStatus(404);
+        } else {
+          res.send(rows);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
+  };
+
+  static readRole = (req, res) => {
+    const userId = req.params.id;
+
+    models.user
+      .findRoleById(userId)
       .then(([rows]) => {
         if (rows == null) {
           res.sendStatus(404);
@@ -160,11 +177,6 @@ class UsersController {
           role: "USER",
         })
         .then((result) => {
-          /* sendMail(
-            email,
-            "Creation compte Sellect",
-            "Votre compte a bien été créé"
-          ); */
           const token = jwt.sign(
             {
               id: result[0].id,

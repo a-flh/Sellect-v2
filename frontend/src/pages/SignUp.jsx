@@ -71,12 +71,11 @@ function SignUp() {
           navigate("/mon-compte/calendrier");
         })
         .catch((err) => {
-          if (err) {
-            setError(true);
-            setTimeout(() => {
-              setError(false);
-            }, 5000);
-          }
+          console.error(err);
+          setError(true);
+          setTimeout(() => {
+            setError(false);
+          }, 5000);
         });
     }
   };
@@ -127,7 +126,7 @@ function SignUp() {
               setSponsorCode(
                 e.target.value
                   .split("")
-                  .map((el) => (el === " " ? "" : el))
+                  .filter((el) => el !== " ")
                   .join("")
               )
             }

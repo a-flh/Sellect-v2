@@ -30,6 +30,10 @@ function AdminDashboard() {
       .catch((err) => console.error(err));
   };
 
+  useEffect(() => {
+    getUsers();
+  }, [isUserDeleted]);
+
   const toggleModal = () => {
     setDeleteUserModal(false);
     setDeleteFileModal(false);
@@ -40,7 +44,7 @@ function AdminDashboard() {
       sessionStorage.getItem("loggedIn") &&
       !sessionStorage.getItem("isAdmin")
     ) {
-      navigate("/mon-compte");
+      navigate("/mon-compte/calendrier");
     }
     if (
       !sessionStorage.getItem("loggedIn") &&
@@ -48,8 +52,7 @@ function AdminDashboard() {
     ) {
       navigate("/");
     }
-    getUsers();
-  }, [isUserDeleted]);
+  });
 
   return (
     <div className="admindashboard-container">
@@ -77,17 +80,15 @@ function AdminDashboard() {
                 user.email.toLowerCase().includes(searchUser.toLowerCase()) ||
                 user.phoneNumber.includes(searchUser)
             )
-            .sort((a, b) => Date.parse(a.signupDate) - Date.parse(b.signupDate))
+            .sort((a, b) => Date.parse(b.signupDate) - Date.parse(a.signupDate))
             .map((user) => {
               return (
                 <li key={user.id}>
                   <UserCard users={users} setUsers={setUsers} user={user} />
                 </li>
               );
-            })
-            .reverse()}
+            })}
       </ul>
-      <ul />
       {deleteUserModal && (
         <Modal
           toggleModal={toggleModal}

@@ -23,11 +23,7 @@ function UpdateInfos({ setModal }) {
       email,
       phoneNumber,
     })
-      .then(() => {
-        setTimeout(() => {
-          setModal(true);
-        }, 500);
-      })
+      .then(() => setModal(true))
       .catch((err) => console.error(err));
   };
 

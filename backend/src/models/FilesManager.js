@@ -25,7 +25,8 @@ class FilesManager extends AbstractManager {
 
   updateContract(file) {
     return this.connection.query(
-      `UPDATE ${FilesManager.table} SET userId = ?, name = ?, content = ?, updateDate = ?, newCost = ?, gain = ? where id = ?`,
+      `UPDATE ${FilesManager.table} SET userId = ?, name = ?, content = ?, updateDate = ?, 
+      newCost = ?, gain = ? where id = ?`,
       [
         file.userId,
         file.name,
@@ -38,6 +39,15 @@ class FilesManager extends AbstractManager {
     );
   }
 
+  findAuditReportsNumber() {
+    return this.connection
+      .query(
+        `SELECT COUNT(id) AS "number" FROM ${FilesManager.table} WHERE file.category 
+        = "Compte-rendu d'audit"`
+      )
+      .then((res) => res[0]);
+  }
+
   findGainsByUserId(userId) {
     return this.connection
       .query(`SELECT gain FROM ${FilesManager.table} WHERE userId = ?`, [
@@ -46,25 +56,17 @@ class FilesManager extends AbstractManager {
       .then((res) => res[0]);
   }
 
+  findTotalGainsPerMonth() {
+    return this.connection
+      .query(`SELECT SUM(gain) AS "total" FROM ${FilesManager.table}`)
+      .then((res) => res[0]);
+  }
+
   deleteAll(userId) {
     return this.connection.query(
       `DELETE FROM ${FilesManager.table} WHERE userId = ?`,
       [userId]
     );
-  }
-
-  findAuditReportsNumber() {
-    return this.connection
-      .query(
-        `SELECT COUNT(id) AS "number" FROM ${FilesManager.table} WHERE file.category = "Compte-rendu d'audit"`
-      )
-      .then((res) => res[0]);
-  }
-
-  findTotalGainsPerMonth() {
-    return this.connection
-      .query(`SELECT SUM(gain) AS "total" FROM ${FilesManager.table}`)
-      .then((res) => res[0]);
   }
 }
 

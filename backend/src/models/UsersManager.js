@@ -3,23 +3,6 @@ const AbstractManager = require("./AbstractManager");
 class UsersManager extends AbstractManager {
   static table = "user";
 
-  insert(user) {
-    return this.connection.query(
-      `INSERT INTO ${UsersManager.table} (id, firstname, lastname, phoneNumber, email, password, sponsorCode, referralCode, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        user.id,
-        user.firstname,
-        user.lastname,
-        user.phoneNumber,
-        user.email,
-        user.password,
-        user.sponsorCode,
-        user.referralCode,
-        user.role,
-      ]
-    );
-  }
-
   findByEmail(user) {
     return this.connection
       .query(`SELECT * FROM ${UsersManager.table} WHERE email = ?`, [
@@ -32,6 +15,30 @@ class UsersManager extends AbstractManager {
     return this.connection
       .query(`SELECT * FROM ${UsersManager.table} WHERE id = ?`, [userId])
       .then((res) => res[0]);
+  }
+
+  findRoleById(userId) {
+    return this.connection
+      .query(`SELECT role FROM ${UsersManager.table} WHERE id = ?`, [userId])
+      .then((res) => res[0]);
+  }
+
+  insert(user) {
+    return this.connection.query(
+      `INSERT INTO ${UsersManager.table} (id, firstname, lastname, phoneNumber, email, password, 
+        sponsorCode, referralCode, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        user.id,
+        user.firstname,
+        user.lastname,
+        user.phoneNumber,
+        user.email,
+        user.password,
+        user.sponsorCode,
+        user.referralCode,
+        user.role,
+      ]
+    );
   }
 
   findNameById(userId) {

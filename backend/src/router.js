@@ -25,6 +25,7 @@ router.post("/login/users", UsersController.login);
 router.get("/logout/users", UsersController.logout);
 router.get("/users/:id", authorization, UsersController.read);
 router.get("/users/name/:id", authorization, UsersController.readName);
+router.get("/users/role/:id", authorization, UsersController.readRole);
 router.delete("/users/:id", authorization, isAdmin, UsersController.delete);
 router.put("/infos/users/:id", authorization, UsersController.editInfos);
 router.put("/password/users/:id", authorization, UsersController.editPassword);

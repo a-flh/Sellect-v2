@@ -11,10 +11,19 @@ function TopicCard({ topic, setIsTopicDeleted }) {
   const [isMessageSent, setIsMessageSent] = useState(false);
   const [messagesNumber, setMessagesNumber] = useState(0);
   const [isMessageModified, setIsMessageModified] = useState(false);
+  const [role, setRole] = useState("");
 
   useEffect(() => {
     API.get(`/users/name/${topic.userId}`)
       .then((res) => setName(`${res.data.firstname} ${res.data.lastname}`))
+      .catch((err) => console.error(err));
+  }, []);
+
+  useEffect(() => {
+    API.get(`/users/role/${topic.userId}`)
+      .then((res) => {
+        setRole(res.data.role);
+      })
       .catch((err) => console.error(err));
   }, []);
 
@@ -75,8 +84,16 @@ function TopicCard({ topic, setIsTopicDeleted }) {
         </div>
       </summary>
       <p className="topic-date">
-        Topic ouvert par <span className="user-pseudo">{name}</span>&nbsp; le{" "}
-        {dateFormater(topic.date)}
+        Topic ouvert par{" "}
+        <span
+          style={{
+            color: role === "ADMIN" && "red",
+          }}
+          className="user-pseudo"
+        >
+          {name}
+        </span>
+        &nbsp; le {dateFormater(topic.date)}
       </p>
       {messagesNumber === 0 && <p>Aucun message n'a été posté</p>}
       {messagesNumber === 1 && <p>{messagesNumber} message posté</p>}

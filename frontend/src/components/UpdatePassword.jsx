@@ -20,11 +20,7 @@ function UpdatePassword({ setModal }) {
       API.put(`/password/users/${userId}`, {
         password,
       })
-        .then(() => {
-          setTimeout(() => {
-            setModal(true);
-          }, 500);
-        })
+        .then(() => setModal(true))
         .catch((err) => console.error(err));
     }
   };

@@ -6,7 +6,7 @@ import "@assets/RoleCard.css";
 function RoleCard({ user }) {
   const superAdminId = import.meta.env.VITE_SUPER_ADMIN_ID;
   const userId = sessionStorage.getItem("userId");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState(user.role);
   const [isRoleUpdated, setIsRoleUpdated] = useState(false);
 
   const handleUpdateRole = (e) => {

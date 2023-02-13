@@ -1,0 +1,292 @@
+textarea {
+  resize: none;
+}
+
+.add-topic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5rem;
+}
+
+.add-topic input {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.2rem;
+  border-radius: 16px;
+  font-size: 1.4rem;
+  width: 30rem;
+  outline: none;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid orange;
+}
+
+.add-topic textarea {
+  margin-bottom: 1.2rem;
+  height: 9rem;
+  width: 50%;
+  min-width: 15rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  outline: none;
+}
+
+.add-topic button {
+  font-weight: normal;
+  font-size: 0.9em;
+  width: 7rem;
+  background-color: var(--navbar-color);
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  padding: 0.4em;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+  margin-bottom: 1rem;
+  border: 2px solid var(--navbar-color);
+}
+
+.add-topic button:hover {
+  cursor: pointer;
+  border: 2px solid var(--navbar-color);
+  color: var(--navbar-color);
+  background-color: white;
+  transition: 0.5s;
+}
+
+.topics-container details {
+  background-color: white;
+  margin-top: 1.5rem;
+  min-width: 70%;
+  max-width: 60%;
+  padding: 1rem;
+  padding-left: 1.5rem;
+  border-radius: 20px;
+}
+
+.topics-container summary {
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.topics-container summary button {
+  background-color: var(--delete-color);
+  border-color: var(--delete-color);
+  padding: 0.4rem 0.7rem;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.topics-container summary button:hover {
+  background-color: white;
+  border-color: var(--delete-color);
+  color: var(--delete-color);
+}
+
+.topics-container {
+  margin-top: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.topic-date {
+  font-size: 1.2rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.form-topic {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-topic textarea {
+  height: 9rem;
+  width: 60%;
+  min-width: 18rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  outline: none;
+  background: var(--white);
+}
+
+.form-topic button {
+  margin-top: 1rem;
+  font-weight: normal;
+  font-size: 0.9em;
+  width: 7rem;
+  background-color: var(--navbar-color);
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  padding: 0.4em;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+  margin-bottom: 1rem;
+  border: 2px solid var(--navbar-color);
+}
+
+.form-topic button:hover {
+  cursor: pointer;
+  border: 2px solid var(--navbar-color);
+  color: var(--navbar-color);
+  background-color: white;
+  transition: 0.5s;
+}
+
+.message-container {
+  margin: 2.8rem 1.2rem 1.2rem;
+}
+
+.message-post {
+  background: var(--background-color);
+  margin-top: 1.8rem;
+  border-radius: 15px;
+  padding: 1rem;
+  width: auto;
+}
+
+.user-pseudo {
+  font-style: italic;
+}
+
+.message-content {
+  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+}
+
+.message-content textarea {
+  height: 9rem;
+  width: 60%;
+  min-width: 18rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  outline: none;
+}
+
+.message-infos {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.message-infos p {
+  font-size: 1rem;
+}
+
+.personal-message-post {
+  background: var(--navbar-color);
+  margin-top: 1.8rem;
+  border-radius: 15px;
+  padding: 1rem;
+  width: auto;
+}
+
+.personal-message-post p {
+  color: white;
+}
+
+.message-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.2rem;
+}
+
+.message-validate button {
+  font-weight: normal;
+  font-size: 0.9em;
+  width: 7rem;
+  background-color: white;
+  border-radius: 20px;
+  color: var(--navbar-color);
+  cursor: pointer;
+  padding: 0.4em;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+  margin-bottom: 1rem;
+  border: 2px solid var(--navbar-color);
+}
+
+.message-validate button:hover {
+  cursor: pointer;
+  border: 2px solid white;
+  color: white;
+  background-color: var(--navbar-color);
+  transition: 0.5s;
+}
+
+.message-delete button {
+  font-weight: normal;
+  font-size: 0.9em;
+  width: 7rem;
+  background-color: var(--delete-color);
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  padding: 0.4em;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+  margin-bottom: 1rem;
+  border: 2px solid var(--delete-color);
+}
+
+.message-delete button:hover {
+  cursor: pointer;
+  border: 2px solid var(--delete-color);
+  color: var(--delete-color);
+  background-color: white;
+  transition: 0.5s;
+}
+
+@media screen and (max-width: 600px) {
+  .topics-container details {
+    min-width: 85%;
+  }
+
+  .add-topic input {
+    font-size: 1.2rem;
+    width: 20rem;
+  }
+
+  .add-topic textarea {
+    height: 11rem;
+    width: 50%;
+    min-width: 15rem;
+  }
+
+  .form-topic textarea {
+    height: 11rem;
+    min-width: 14rem;
+    font-size: 1rem;
+  }
+
+  .message-content textarea {
+    height: 10.5rem;
+    min-width: 11rem;
+    font-size: 0.9rem;
+  }
+
+  .personal-message-post,
+  .message-post {
+    min-width: 14rem;
+  }
+
+  .message-content p {
+    font-size: 1.1rem;
+  }
+
+  .message-infos p {
+    font-size: 0.8rem;
+  }
+}

@@ -18,7 +18,6 @@ const fileMiddleware = (req, res, next) => {
     if (err) {
       res.status(500).json({ validationErrors: [{ message: err.message }] });
     } else {
-      // console.log({ fields, files });
       req.body = fields;
       req.files = files;
       next();
