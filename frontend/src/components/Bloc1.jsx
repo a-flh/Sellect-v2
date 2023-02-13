@@ -20,31 +20,19 @@ export default function Bloc1() {
         <div className="btn">
           {sessionStorage.getItem("loggedIn") ? (
             <Link to="/mon-compte/calendrier">
-              <button
-                type="button"
-                className="audit"
-                /* onClick={handleClick} */
-              >
+              <button type="button" className="audit">
                 Je réserve mon audit
               </button>
             </Link>
           ) : (
             <Link to="/connexion">
-              <button
-                type="button"
-                className="audit"
-                /* onClick={handleClick} */
-              >
+              <button type="button" className="audit">
                 Je réserve mon audit
               </button>
             </Link>
           )}
           <a href="#parrainage">
-            <button
-              type="button"
-              className="parrainage"
-              /* onClick={handleClick} */
-            >
+            <button type="button" className="parrainage">
               Je deviens apporteur d'affaires
             </button>
           </a>

@@ -4,6 +4,12 @@ class AbstractManager {
     this.table = table;
   }
 
+  delete(id) {
+    return this.connection.query(`delete from ${this.table} where id = ?`, [
+      id,
+    ]);
+  }
+
   find(id) {
     return this.connection.query(`select * from  ${this.table} where id = ?`, [
       id,
@@ -12,12 +18,6 @@ class AbstractManager {
 
   findAll() {
     return this.connection.query(`select * from  ${this.table}`);
-  }
-
-  delete(id) {
-    return this.connection.query(`delete from ${this.table} where id = ?`, [
-      id,
-    ]);
   }
 }
 

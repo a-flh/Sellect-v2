@@ -186,24 +186,24 @@ a {
 @media screen and (max-width: 1000px) {
   nav .items,
   nav a {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .items-activated,
   nav a {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
   nav .items,
   nav a {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
   }
 
   .items-activated,
   nav a {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
   }
 }
 

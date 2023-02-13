@@ -25,13 +25,10 @@ function UserCard({ user }) {
         console.error(err)
       );
       API.delete(`/delete-all-topics/${user.id}`)
-        .catch((err) => console.error(err))
         .then(() => API.delete(`/users/${user.id}`))
         .then(() => {
           setIsUserDeleted(true);
-          setTimeout(() => {
-            setDeleteUserModal(true);
-          }, 500);
+          setDeleteUserModal(true);
         })
         .catch((err) => console.error(err));
     }

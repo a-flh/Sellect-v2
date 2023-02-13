@@ -36,9 +36,7 @@ function FileCard({ file, files, setFiles, admin }) {
         .then(() => {
           setFiles(files.filter((el) => el !== file));
           setIsFileDeleted(true);
-          setTimeout(() => {
-            setDeleteFileModal(true);
-          }, 500);
+          setDeleteFileModal(true);
         })
         .catch((err) => console.error(err));
     }

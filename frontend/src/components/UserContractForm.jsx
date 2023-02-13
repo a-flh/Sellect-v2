@@ -24,9 +24,7 @@ function UserContractForm() {
     API.post("/upload/contracts", formData)
       .then(() => {
         setIsContractSent(true);
-        setTimeout(() => {
-          setIsFileModal(true);
-        }, 500);
+        setIsFileModal(true);
       })
       .catch((err) => {
         console.error(err);

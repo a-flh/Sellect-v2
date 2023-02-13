@@ -1,21 +1,11 @@
 import { NavLink } from "react-router-dom";
 import "../assets/Footer.css";
-import {
-  FaHeart,
-  /* FaYoutube,
-  FaInstagram, */
-  FaFacebook,
-  FaLinkedin,
-  FaTwitter,
-} from "react-icons/fa";
+import { FaHeart, FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 export default function Footer() {
   return (
     <footer className="footer">
       <div className="reseauxsociaux">
-        {/* <a target="_blank" href="https://www.wildcodeschool.com/fr-FR">
-          <FaInstagram size="27" color="white" />
-  </a> */}
         <a
           target="_blank"
           href="https://www.facebook.com/people/Sellect-Sellect/100082178312479/"
@@ -23,9 +13,6 @@ export default function Footer() {
         >
           <FaFacebook size="27" color="white" />
         </a>
-        {/* <a target="_blank" href="https://www.wildcodeschool.com/fr-FR">
-          <FaYoutube size="27" color="white" />
-</a> */}
         <a
           target="_blank"
           href="https://www.linkedin.com/in/sellect-undefined-122184241/"

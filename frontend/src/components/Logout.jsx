@@ -7,11 +7,9 @@ function Logout() {
   const handleLogout = (e) => {
     e.preventDefault();
     API.get(`/logout/users`)
-      .then((res) => {
-        if (res.status === 200) {
-          sessionStorage.clear();
-          window.location = "/";
-        }
+      .then(() => {
+        sessionStorage.clear();
+        window.location = "/";
       })
       .catch((err) => console.error(err));
   };

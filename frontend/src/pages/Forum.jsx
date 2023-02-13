@@ -1,9 +1,10 @@
 import UserNavbar from "@components/UserNavbar";
 import React, { useEffect, useState } from "react";
 import API from "@services/api";
-// import "../assets/Forum.css";
+import "../assets/Forum.css";
 import { useNavigate } from "react-router-dom";
 import TopicCard from "@components/TopicCard";
+import Footer from "@components/Footer";
 
 function Forum() {
   const userId = sessionStorage.getItem("userId");
@@ -68,7 +69,7 @@ function Forum() {
           value={topicContent}
           onChange={(e) => setTopicContent(e.target.value)}
         />
-        <input
+        <textarea
           type="text"
           required
           placeholder="Votre message"
@@ -91,6 +92,7 @@ function Forum() {
               );
             })}
       </div>
+      <Footer />
     </div>
   );
 }

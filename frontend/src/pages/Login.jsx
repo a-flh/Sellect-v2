@@ -29,12 +29,11 @@ function Login() {
         }
       })
       .catch((err) => {
-        if (err) {
-          setLoginError(true);
-          setTimeout(() => {
-            setLoginError(false);
-          }, 5000);
-        }
+        console.error(err);
+        setLoginError(true);
+        setTimeout(() => {
+          setLoginError(false);
+        }, 5000);
       });
   };
 

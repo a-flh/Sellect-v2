@@ -1,18 +1,6 @@
 const models = require("../models");
 
 class MessagesController {
-  static browse = (req, res) => {
-    models.message
-      .findAll()
-      .then(([rows]) => {
-        res.send(rows);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.sendStatus(500);
-      });
-  };
-
   static read = (req, res) => {
     const topicId = parseInt(req.params.id, 10);
 
@@ -41,28 +29,6 @@ class MessagesController {
           res.sendStatus(404);
         } else {
           res.send(rows[0]);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        res.sendStatus(500);
-      });
-  };
-
-  static edit = (req, res) => {
-    const message = req.body;
-
-    // TODO validations (length, format...)
-
-    message.id = parseInt(req.params.id, 10);
-
-    models.message
-      .update(message)
-      .then(([result]) => {
-        if (result.affectedRows === 0) {
-          res.sendStatus(404);
-        } else {
-          res.sendStatus(204);
         }
       })
       .catch((err) => {
@@ -112,8 +78,6 @@ class MessagesController {
   static add = (req, res) => {
     const message = req.body;
 
-    // TODO validations (length, format...)
-
     models.message
       .insert(message)
       .then(([result]) => {
@@ -154,18 +118,6 @@ class MessagesController {
         } else {
           res.send(rows);
         }
-      })
-      .catch((err) => {
-        console.error(err);
-        res.sendStatus(500);
-      });
-  };
-
-  static delete = (req, res) => {
-    models.message
-      .delete(req.params.id)
-      .then(() => {
-        res.sendStatus(204);
       })
       .catch((err) => {
         console.error(err);

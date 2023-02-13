@@ -1,16 +1,26 @@
 import API from "@services/api";
 import React, { useEffect, useState } from "react";
+import "../assets/Forum.css";
 
 function MessageCard({ message, setIsMessageModified }) {
   const userId = sessionStorage.getItem("userId");
   const [name, setName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(message.content);
+  const [role, setRole] = useState("");
 
   useEffect(() => {
     API.get(`/users/name/${message.userId}`)
       .then((res) => {
         setName(`${res.data.firstname} ${res.data.lastname}`);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  useEffect(() => {
+    API.get(`/users/role/${message.userId}`)
+      .then((res) => {
+        setRole(res.data.role);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -72,27 +82,42 @@ function MessageCard({ message, setIsMessageModified }) {
       </div>
       <div className="message-infos">
         <p>
-          Posté par <span className="user-pseudo">{name}</span> le{" "}
-          {preciseDateFormater(message.date)}
+          Posté par{" "}
+          <span
+            style={{
+              color: role === "ADMIN" && message.userId !== userId && "red",
+            }}
+            className="user-pseudo"
+          >
+            {name}
+          </span>{" "}
+          le {preciseDateFormater(message.date)}
         </p>
       </div>
-      {message.userId === userId && isEditing && !message.isDeleted && (
-        <button type="button" onClick={editMessage}>
-          Valider
-        </button>
-      )}
-      {message.userId === userId && !isEditing && !message.isDeleted && (
-        <button type="button" onClick={() => setIsEditing(true)}>
-          Editer
-        </button>
-      )}
-      {sessionStorage.getItem("isAdmin") &&
-        !message.isDeleted &&
-        message.userId !== userId && (
-          <button type="button" onClick={banMessage}>
-            Supprimer
-          </button>
-        )}
+      <div className="message-buttons">
+        <div className="message-validate">
+          {message.userId === userId && isEditing && !message.isDeleted && (
+            <button type="button" onClick={editMessage}>
+              Valider
+            </button>
+          )}
+          {message.userId === userId && !isEditing && !message.isDeleted && (
+            <button type="button" onClick={() => setIsEditing(true)}>
+              Editer
+            </button>
+          )}
+        </div>
+        <div className="message-delete">
+          {sessionStorage.getItem("isAdmin") &&
+            !message.isDeleted &&
+            message.userId !== userId &&
+            role !== "ADMIN" && (
+              <button type="button" onClick={banMessage}>
+                Supprimer
+              </button>
+            )}
+        </div>
+      </div>
     </div>
   );
 }
