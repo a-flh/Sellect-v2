@@ -19,6 +19,7 @@ function SignUp() {
   const [passwordError, setPasswordError] = useState(false);
   const [sponsorCodeError, setSponsorCodeError] = useState(false);
   const [emailError, setEmailError] = useState(false);
+  const [lengthError, setLengthError] = useState(false);
   const [sponsorCode, setSponsorCode] = useState("");
   const [sponsorName, setSponsorName] = useState("");
   const navigate = useNavigate();
@@ -44,6 +45,11 @@ function SignUp() {
       setEmailError(true);
       setTimeout(() => {
         setEmailError(false);
+      }, 5000);
+    } else if (password.length < 10) {
+      setLengthError(true);
+      setTimeout(() => {
+        setLengthError(false);
       }, 5000);
     } else if (password !== confirmPassword) {
       setPasswordError(true);
@@ -160,6 +166,11 @@ function SignUp() {
             {sponsorCodeError && (
               <span className="error">
                 Ce code de parrainage n'est pas valide
+              </span>
+            )}
+            {lengthError && (
+              <span className="error">
+                Le mot de passe doit contenir au moins 10 caractères
               </span>
             )}
           </div>
